@@ -1,0 +1,24 @@
+list todo
+
+
+
+reminder
+random_learner
+
+└── SINGLES
+├── BANK
+│   ├── awake
+│   ├── commitment
+│   ├── lecture_recent
+│   ├── list
+│   ├── new_word
+│   ├── plugins_menu
+│   ├── random_learner
+│   ├── reminder
+│   ├── riddle
+│   ├── single.sh
+│   ├── sleep
+│   ├── suspend
+│   └── translation
+
+

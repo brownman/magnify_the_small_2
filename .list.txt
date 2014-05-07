@@ -1,7 +1,10 @@
+commitment
 list todo
+sleep 40
 
 
 
+awake 15
 reminder
 random_learner
 

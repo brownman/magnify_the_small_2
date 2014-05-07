@@ -1,2 +1,2 @@
-commitment 300
-awake 300
+commitment 600 
+awake 600

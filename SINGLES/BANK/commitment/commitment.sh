@@ -28,12 +28,12 @@ run(){
     local cmd=""
     local line=""
     export GXMESSAGE='-ontop -sticky -wrap -timeout 10'
-    while [ -z "$line" ];do
+#    while [ -z "$line" ];do
         flite -t "next easy mission"
         cmd="gxmessage -entrytext \"$line\" -title 'Focus' -file $file_done $GXMESSAGE"
 
         line=$(    eval "$cmd" )
-    done
+  #  done
     local line_new="$time1\t$line"
     update_file $file_done "$line_new"
     local            cmd="progress_bar \"$line\"" 

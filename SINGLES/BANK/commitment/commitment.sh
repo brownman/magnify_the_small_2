@@ -24,10 +24,9 @@ progress_bar ()
     done ) | yad --progress --percentage=10 --progress-text="$text" --title="$title" --sticky --on-top --auto-close
 }
 
-run(){
+update_commitment(){
     local time1=`date | tr -s ' ' | cut -d' ' -f4 | cut -d':' -f1,2 `
     local cmd=""
-    local line=""
     export GXMESSAGE='-ontop -sticky -wrap -timeout 10'
 #    while [ -z "$line" ];do
         flite -t "next easy mission"
@@ -37,13 +36,23 @@ run(){
   #  done
     local line_new="$time1\t$line"
     update_file $file_done "$line_new"
+    show_progress
+}
+show_progress(){
     local            cmd="progress_bar \"$line\"" 
     local str=$( eval "$cmd" )
     local res=$?
-}
 
+}
 #unlocker
 file_done=/tmp/done.txt
 [ ! -f $file_done ] && { touch $file_done ;}
 delay=${1:-60}
-run
+line="${2:-}"
+if [ -z "$line" ];then
+update_commitment
+else
+show_progress
+fi
+
+

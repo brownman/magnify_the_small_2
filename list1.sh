@@ -21,7 +21,10 @@ set_env(){
 }
 eat(){
     local    cmd="$@"
+
+    local    max="$#"
     echo "[cmd] $cmd"
+    echo "[max] $max"
 
     eval   "$cmd" 
     sleep  2
@@ -40,9 +43,14 @@ single(){
             args=$( echo $line | cut -d' ' -f2- )
             file_task=$dir_self/SINGLES/BANK/$task_name/${task_name}.sh
             #[ -s "$file_task" ] && { eat "$file_task" ;} || { echo "[file not exist] $file_task";ls -l $file_task; }
-            str_depend=$(            cat $file_task | grep depend_package )
-            echo "[DEPANDENCIES] $str_depend"
+            #str_depend=$(            cat $file_task | grep depend_package )
+            #echo "[DEPANDENCIES] $str_depend"
+            if [ "$args" ];then
             eat "$file_task $args"
+        else
+            echo no args
+            eat $file_task
+        fi
         else 
             break
         fi

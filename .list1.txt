@@ -1,2 +1,5 @@
+commitment 60 "LPI - easy"
 commitment 600 
-awake 600
+awake 60
+open_url https://www.google.com/calendar/render
+

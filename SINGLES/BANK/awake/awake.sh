@@ -14,7 +14,7 @@ sleep 4
 
 util=/usr/sbin/rtcwake
 
-cmd="$util -m mem -s $timeout"
+cmd="sudo $util -m mem -s $timeout"
 echo "$cmd"
 sleep 4
 eval "$cmd"

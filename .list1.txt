@@ -1,5 +1,9 @@
+reminder
 commitment 60 "LPI - easy"
+reminder
 commitment 600 
 awake 60
 open_url https://www.google.com/calendar/render
+reminder
+
 

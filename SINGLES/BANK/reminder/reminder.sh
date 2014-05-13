@@ -1,13 +1,24 @@
 #!/bin/bash
+#depend_package: yad flite vim-gtk
 set -o nounset 
 
 #change between false and true - to sound / unsound
 sound=${SOUND:-true}
 dir_script=`dirname $0`
-file=$dir_workspace/lists/reminder.txt
+file=${file_reminder:-/tmp/reminder.txt}
+
+
+if [ ! -f $file ];then
+    touch $file
+    echo "I can do it" > $file
+fi
+NAME=${MY_NAME:-$LOGNAME}
 cmd=${1:-'run'}
 
 
+update_current(){
+( yad --notification 'test' --command="gvim $file" --listen --menu 'sdf|abc|df'  --timeout=10 )
+}
 speak(){
     local line="$1"
     if [ "$line" ];then
@@ -30,6 +41,7 @@ speak(){
 
 }
 run(){
+    update_current &
     echo 'run()'
     local line=$(random_line $file)
     speak "$NAME"
@@ -48,5 +60,4 @@ random_line(){
     fi
 }
 run
-
 

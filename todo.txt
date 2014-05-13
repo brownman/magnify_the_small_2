@@ -1,0 +1,2 @@
+git merging -> compA + compB
+compA -> gui: press button -> will run command - zenity notification VS yad

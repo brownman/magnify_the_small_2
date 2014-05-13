@@ -1,6 +1,7 @@
 clear
 exec 2>/tmp/err
 trap trap_err ERR
+file_reminder=$dir_self/.old/reminders.txt
 
 trap_err(){
     str_caller=`caller`
@@ -18,6 +19,7 @@ set_env(){
     echo "[dir_self]: $dir_self"
     export file_list=$dir_self/.list1.txt
     echo "[file_list]: $file_list"
+    source env.cfg
 }
 eat(){
     local    cmd="$@"
@@ -43,8 +45,14 @@ single(){
             args=$( echo $line | cut -d' ' -f2- )
             file_task=$dir_self/SINGLES/BANK/$task_name/${task_name}.sh
             #[ -s "$file_task" ] && { eat "$file_task" ;} || { echo "[file not exist] $file_task";ls -l $file_task; }
-            #str_depend=$(            cat $file_task | grep depend_package )
-            #echo "[DEPANDENCIES] $str_depend"
+            str_depend=$(            cat $file_task | grep depend_package )
+            if [ $str_depend ];then
+            echo "[DEPANDENCIES] $str_depend"
+            else
+                zenity --alert=error "add tag: #depend_package:"
+                gvim $file_task &
+            fi
+
             if [ "$args" ];then
             eat "$file_task $args"
         else

@@ -12,7 +12,7 @@ if [ ! -f $file ];then
     touch $file
     echo "I can do it" > $file
 fi
-NAME=${MY_NAME:-$LOGNAME}
+NAME=${NAME:-$LOGNAME}
 cmd=${1:-'run'}
 
 
@@ -24,7 +24,7 @@ speak(){
     if [ "$line" ];then
 
 
-        notify-send "$line" & 
+       # notify-send "$line" & 
         if [ "$sound" = true ];then
 
             echo "$line" | flite -voice slt &

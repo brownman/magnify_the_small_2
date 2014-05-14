@@ -50,7 +50,8 @@ single(){
             echo "[DEPANDENCIES] $str_depend"
             else
                 zenity --alert=error "add tag: #depend_package:"
-                gvim $file_task &
+
+                #trace gvim $file_task &
             fi
 
             if [ "$args" ];then

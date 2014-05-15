@@ -17,7 +17,7 @@ trap_err(){
 set_env(){
     export dir_self=`pwd`
     echo "[dir_self]: $dir_self"
-    export file_list=$dir_self/.list1.txt
+    export file_list=$dir_self/priorities
     echo "[file_list]: $file_list"
     source env.cfg
 }

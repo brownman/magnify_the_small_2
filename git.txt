@@ -1,0 +1,3 @@
+git push <remote> <remote>/<old_name>:refs/heads/<new_name> :<old_name>
+rename remote branch
+git push $1 $1/$2:refs/heads/$3 :$2

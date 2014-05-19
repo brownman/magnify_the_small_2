@@ -9,10 +9,12 @@ update_file(){
 progress_bar () 
 { 
     local sec=${delay:-60};
-    local title=Focus;
+#    local title=Focus;
     local min=$((sec/60));
-    text="${1:-}";
-    text="${min}m :: $text";
+    title="${1:-focus}";
+    text="${min}m"
+
+    #text="${min}m :: $text";
     title=" $title ";
     local num=0;
     ( echo "sleep ${sec}s";

@@ -1,5 +1,9 @@
+optional calendar google-chrome https://www.google.com/calendar/render
+optional update_list notify-send "pwd" "$PWD"
+
+
+
 reminder
-optional https://www.google.com/calendar/render
 commitment 120
 awake 30
 commitment 120

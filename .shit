@@ -1,0 +1,22 @@
+eat(){
+    local    cmd="$@"
+    local    max="$#"
+    echo "[cmd] $cmd"
+    echo "[max] $max"
+    eval   "$cmd" 
+    sleep  2
+}
+
+
+            task_name=$( echo $line | cut -d' ' -f1 )
+            args=$( echo $line | cut -d' ' -f2- )
+            file_task=$dir_gist/${task_name}.sh
+            #[ -s "$file_task" ] && { eat "$file_task" ;} || { echo "[file not exist] $file_task";ls -l $file_task; }
+
+ if [ "$args" ];then
+                    eat "$file_task $args"
+                else
+                    echo no args
+                    eat $file_task
+                fi
+

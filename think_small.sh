@@ -3,6 +3,21 @@ clear
 
 #trap trap_err ERR
 set -o nounset
+update_clipboard(){
+    ok updating clipboard
+    echo "$@" | xsel --clipboard
+}
+trap_sigint(){
+    if [ -n "$file_current" ];then
+        update_clipboard "vi $file_current"
+    else
+        error wait - idiot
+    fi
+    exit 0
+
+}
+
+
 ok()(
 local str=`echo $@`
 print_color 32 "$str"
@@ -60,6 +75,7 @@ sourcing(){
     #source $dir_self/CFG/trap_err.cfg
 }
 set_env(){
+    file_current=""
     export dir_self=`where_am_i $0`
     echo "[dir_self]: $dir_self"
     if [  -n "$input" ];then
@@ -77,16 +93,20 @@ set_env(){
     dir_gist=$dir_self/BANK/GISTS/BANK
 
 }
+
 run_task(){
-local  task="$1"
-local  params="${2:-}"
-local  file="$dir_gist/$task/$task.sh"
+    local  task="$1"
+    local  params="${2:-}"
+    local  file="$dir_gist/$task/$task.sh"
+file_current="$file"
+    sleep 2
+
     if [ -f $file ];then
         local cmd="$file $params" 
-super  "[Running Task] $cmd"
-eval "$cmd"
+        super  "[Running Task] $cmd"
+        eval "$cmd"
     else
-error "file not found: $file"
+        error "file not found: $file"
     fi
 }
 single(){
@@ -100,7 +120,7 @@ single(){
     local arr=()
     local file=''
     local task=''
-echo loop over the fils
+    echo loop over the fils
     while read line;do
         if [ -n "$line" ];then
             task=$(            echo "$line" | cut -d ' ' -f1 )
@@ -136,14 +156,14 @@ print_priorities(){
     cat $file_list
 }
 print_big_picture(){
-echo "Magnify the small is all about daring to start - even the smallest step is counted and appriciated !"
-echo 'update static txt: TXT/'
-echo 'use task: add_snippet to collect more wisdom'
-echo 'collect your edits at WORKSPACE/'
+    echo "Magnify the small is all about daring to start - even the smallest step is counted and appriciated !"
+    echo 'update static txt: TXT/'
+    echo 'use task: add_snippet to collect more wisdom'
+    echo 'collect your edits at WORKSPACE/'
 }
 steps(){
     set_env
-          print_big_picture 
+    print_big_picture 
     print_priorities
     sourcing
     #    present
@@ -158,6 +178,8 @@ steps(){
 }
 #trap 'trap_err' ERR
 #export -f trap_err
+
+trap trap_sigint SIGINT
 input=${@:-}
 echo "[input] $input"
 steps

@@ -1,3 +1,5 @@
+#vim -f +"syn on" +"colorscheme evening" +"TOhtml" +"wq" +"q" linux_version.sh
+
 echo $0
 sleep 1
 pushd `dirname $0` >/dev/null
@@ -15,7 +17,7 @@ steps(){
 local file=/tmp/snippet
 touch $file
 
-local str=$( gxmessage -entry -title "Add Snippet" -file /tmp/snippet $GXMESSAGE2 )
+local str=$( gxmessage -entry -title "Add Snippet" "Any new Question ?" $GXMESSAGE2 )
 
 #./fu2.sh "$str"
 [ -n "$str" ] && ./text2html.sh snippet

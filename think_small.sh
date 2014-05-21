@@ -1,6 +1,29 @@
 clear
-exec 2>/tmp/err
+#exec 2>/tmp/err
+
+#trap trap_err ERR
 set -o nounset
+ok()(
+local str=`echo $@`
+print_color 32 "$str"
+)
+super()(
+local str=`echo $@`
+print_color 35 "$str"
+)
+
+
+error()(
+local str=`echo $@`
+print_color 31 "$str"
+)
+warn()(
+local str=`echo $@`
+print_color 33 "! $str"
+)
+toilet1(){
+    toilet --gay  "$@" 
+}
 where_am_i () 
 { 
     local file=${1:-"${BASH_SOURCE[1]}"};
@@ -14,7 +37,7 @@ where_am_i ()
 trap_err(){
     str_caller=`caller`
 
-    type print_color &>/dev/null && { print_color 31 "TRAPPING ERROR"; } || { echo TRAP ERROR; }
+    type print_color &>/dev/null && { error trap_err; } || { echo TRAP ERROR; }
     echo "[str_caller] $str_caller"
 
     local cmd0="gvim +${str_caller}"
@@ -39,51 +62,60 @@ sourcing(){
 set_env(){
     export dir_self=`where_am_i $0`
     echo "[dir_self]: $dir_self"
-    export file_list=$dir_self/priorities
+    if [  -n "$input" ];then
+        #depend_var: input
+        export file_list=/tmp/list_test_task
+        echo "$input" > /$file_list
+    else
+
+        export file_list=$dir_self/priorities
+    fi
+
+
+
     echo "[file_list]: $file_list"
     dir_gist=$dir_self/BANK/GISTS/BANK
 
 }
-
+run_task(){
+local  task="$1"
+local  params="${2:-}"
+local  file="$dir_gist/$task/$task.sh"
+    if [ -f $file ];then
+        local cmd="$file $params" 
+super  "[Running Task] $cmd"
+eval "$cmd"
+    else
+error "file not found: $file"
+    fi
+}
 single(){
- trap trap_err ERR
+    echo '[single]'
+    #    trap trap_err ERR
+    #    exec 2>/tmp/err
     local task_name=''
     local args=()
     local file_task=''
     local str_depend=''
     local arr=()
+    local file=''
+    local task=''
+echo loop over the fils
     while read line;do
         if [ -n "$line" ];then
-            echo "$line"
-            arr=(  $line )
-            echo "${#arr[@]}"
-            task="${arr[0]}"
-            file=$dir_gist/$task/$task.sh
-
-
-            unset arr[0]              ## remove element
-            array=( "${arr[@]}" )     ## pack array
-
-            args="${arr[@]}"
-            args1="${args:-}"
-
-            if [ -f "$file" ];then
-                eval "$file $args1"
-            else
-                print_color 31 "[Error] file not found"
-                notify-send error file_not_found
-                exit
-            fi
-
-        else 
-            echo breaking
-            break
+            task=$(            echo "$line" | cut -d ' ' -f1 )
+            params=$(             echo "$line" | cut -d ' ' -f2- )
+            cmd="run_task \"$task\" \"$params\""
+            echo "[cmd] $cmd" 
+            eval "$cmd"
+        else
+            warn "file has empty line: $file_list"
         fi
-
-    done<$file_list
+    done < $file_list
 }
 
 loop(){
+    echo "[loop]"
     local counter=1
     while :;do
         flite -t "round $counter"
@@ -99,17 +131,33 @@ present(){
     $dir_self/self_present.sh
 }
 
-
+print_priorities(){
+    toilet1 Priorities 
+    cat $file_list
+}
+print_big_picture(){
+echo "Magnify the small is all about daring to start - even the smallest step is counted and appriciated !"
+echo 'update static txt: TXT/'
+echo 'use task: add_snippet to collect more wisdom'
+echo 'collect your edits at WORKSPACE/'
+}
 steps(){
-
     set_env
+          print_big_picture 
+    print_priorities
     sourcing
-
     #    present
     #    overview
-    loop
-}
-trap 'trap_err' ERR
-export -f trap_err
+    if [ -n "$input" ];then
+        single
 
+    else
+        loop
+    fi
+
+}
+#trap 'trap_err' ERR
+#export -f trap_err
+input=${@:-}
+echo "[input] $input"
 steps

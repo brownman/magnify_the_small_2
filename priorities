@@ -1,14 +1,8 @@
-optional calendar google-chrome https://www.google.com/calendar/render
-optional update_list notify-send "pwd" "$PWD"
-
-
-
 reminder
+optional 'update calendar' google-chrome https://www.google.com/calendar/render
+optional 'update priorities' gxmessage --entrytext "$PWD" 'update the priorities'
 commitment 120
 awake 30
 commitment 120
 suspend 120
 commitment 60 "LPI - easy"
-
-
-

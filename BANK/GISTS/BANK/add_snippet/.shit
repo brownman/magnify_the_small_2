@@ -1,0 +1,7 @@
+[ -n "$str" ] && fu_cmd "$str" 1> $file
+if [ -s $file ];then
+cat $file
+cat $file | zenity --list --column=1  --column=2 --title "results" --separator="\n"
+else
+echo "[Error] file is empty: $file"
+fi

@@ -2,7 +2,10 @@
 set -o nounset
 
 
-
+toilet2(){
+    local str="$@"
+toilet --gay "$str"
+}
 set_env(){
 reset
 echo -n '' > /tmp/edit
@@ -16,7 +19,7 @@ dir_gist=$dir_self/BANK/GISTS/BANK
 
 grepping(){
 
-
+toilet2 $tag
 #tree $dir_gist
 dirs=`ls -d $dir_gist/*`
 for dir in $dirs;do
@@ -29,11 +32,11 @@ for dir in $dirs;do
         if [ -n "$str" ];then
             print_color 32 "\t$str"  
         else
-            echo "$taskname|$file" >> /tmp/edit 
+            print_color 31 "$file" >> /tmp/edit 
         fi
     else
 
-            echo "$taskname|$file" >> /tmp/file_not_found
+            print_color 33 "$taskname|$file" >> /tmp/file_not_found
     fi
 
 
@@ -48,7 +51,10 @@ file_to_menu /tmp/edit
 }
 steps(){
     set_env
+
     grepping
 #[ $SHLVL = 1 ] && {    summary; }
+cat /tmp/edit
+cat /tmp/file_not_found
 }
 steps

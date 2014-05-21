@@ -1,0 +1,77 @@
+# commandlinefu.com by David Winterbottom
+
+# Run the last command as root
+sudo !!
+
+# Serve current directory tree at http://$HOSTNAME:8000/
+python -m SimpleHTTPServer
+
+# Runs previous command but replacing
+^foo^bar
+
+# Rapidly invoke an editor to write a long, complex, or tricky command
+ctrl-x e
+
+# Execute a command without saving it in the history
+<space>command
+
+# Salvage a borked terminal
+reset
+
+# Place the argument of the most recent command on the shell
+'ALT+.' or '<ESC> .'
+
+# currently mounted filesystems in nice layout
+mount | column -t
+
+# Execute a command at a given time
+echo "ls -l" | at midnight
+
+# Query Wikipedia via console over DNS
+dig +short txt <keyword>.wp.dg.cx
+
+# start a tunnel from some machine's port 80 to your local post 2001
+ssh -N -L2001:localhost:80 somemachine
+
+# Quick access to the ascii table.
+man ascii
+
+# Get your external IP address
+curl ifconfig.me
+
+# Runs previous command replacing foo by bar every time that foo appears
+!!:gs/foo/bar
+
+# output your microphone to a remote computer's speaker
+dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp
+
+# Mount a temporary ram partition
+mount -t tmpfs tmpfs /mnt -o size=1024m
+
+# Mount folder/filesystem through SSH
+sshfs name@server:/path/to/folder /path/to/mount/point
+
+# Update twitter via curl
+curl -u user:pass -d status="Tweeting from the shell" http://twitter.com/statuses/update.xml
+
+# Download an entire website
+wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com
+
+# Compare a remote file with a local file
+ssh user@host cat /path/to/remotefile | diff /path/to/localfile -
+
+# Clear the terminal screen
+ctrl-l
+
+# type partial command, kill this command, check something you forgot, yank the command, resume typing.
+<ctrl+u> [...] <ctrl+y>
+
+# Jump to a directory, execute a command and jump back to current dir
+(cd /tmp && ls)
+
+# List the size (in human readable form) of all sub folders from the current location
+du -h --max-depth=1
+
+# A very simple and useful stopwatch
+time read (ctrl-d to stop)
+

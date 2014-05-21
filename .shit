@@ -20,3 +20,40 @@ eat(){
                     eat $file_task
                 fi
 
+ 
+   
+            run_cmd ""
+            echo "[line] $line"
+            echo "[shlvl] $SHLVL"
+            echo "[task]" "$cmd"
+            ( eval "$cmd" )
+            #1>/tmp/out 2>/tmp/err 
+
+            arr=(  $line )
+            echo "${#arr[@]}"
+            task="${arr[0]}"
+            
+
+
+
+            file=$dir_gist/$task/$task.sh
+            local cmd_option="run_task optional "'Edit Task ? $task' 'gvim $file'"
+            print_color 32 "[cmd_option] $cmd_option "
+            (eval "$cmd_option" &)
+            echo "[file] $file"
+            if [ -f "$file" ];then
+                unset arr[0]              ## remove element
+                params="${arr[@]:-}"
+                run_task "$task" "$params"
+
+            else
+                print_color 31 "[Error] file not found"
+                notify-send error file_not_found
+                exit
+            fi
+
+        else 
+            echo breaking
+            break
+        fi
+

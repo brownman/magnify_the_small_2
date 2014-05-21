@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/Downloads/LOOP2/magnify_the_small_2/BANK/GISTS/BANK/add_snippet/snippet.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v10">
+<meta name="syntax" content="conf">
+<meta name="settings" content="use_css,pre_wrap,expand_tabs">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-color: #000000; }
+body { font-family: monospace; color: #ffffff; background-color: #000000; }
+.Constant { color: #ff40ff; font-weight: bold; }
+.Comment { color: #00ffff; }
+-->
+</style>
+</head>
+<body>
+<pre>
+
+<span class="Comment"># cowsay - 21 {{{1</span>
+<span class="Comment"># Make all the cows tell a fortune {{{2</span>
+echo <span class="Constant">'Dir.foreach(&quot;/usr/local/Cellar/cowsay/3.03/share/cows&quot;) {|cow| puts cow; system &quot;fortune | cowsay -f /usr/local/Cellar/cowsay/3.03/share/cows/#{cow}&quot; }'</span> | ruby
+
+<span class="Comment"># old man's advice {{{2</span>
+fortune | toilet -w $(($(tput cols)-5)) -f pagga | cowsay -n -f beavis.zen
+
+<span class="Comment"># Realtime clock cowsay {{{2</span>
+watch -tn1 <span class="Constant">'figlet -f slant  `date +%T` | cowsay -n -f telebears'</span>
+
+<span class="Comment"># Random cowsay with figlet typhography {{{2</span>
+figlet -f $(ls /usr/share/figlet/fonts/*.flf | shuf -n1) namakukingkong | cowsay -n -f $(ls /usr/share/cows/ | shuf -n1)
+
+<span class="Comment"># let the cow suggest some commit messages for you {{{2</span>
+curl -s <a href="http://whatthecommit.com/index.txt">http://whatthecommit.com/index.txt</a> | cowsay
+
+<span class="Comment"># Cowsay Random Cow saying your fortune with colorized output {{{2</span>
+files=(/usr/share/cowsay/cows/*); cowsay -f `echo ${files[$((RANDOM%${#files}))]}` `fortune` | toilet -F gay -f term
+
+<span class="Comment"># Cowsay Random Cowfile {{{2</span>
+files=(/usr/share/cowsay/cows/*); cowsay -f `echo ${files[$((RANDOM%${#files}))]}` &lt;TEXT&gt;
+
+<span class="Comment"># let the cow suggest some commit messages for you {{{2</span>
+while true; do curl -s <a href="http://whatthecommit.com">http://whatthecommit.com</a> | perl -p0e <span class="Constant">'($_)=m{&lt;p&gt;(.+?)&lt;/p&gt;}s'</span> | cowsay; sleep 2; done
+
+<span class="Comment"># let the cow suggest some commit messages for you {{{2</span>
+while true; do lynx --dump <a href="http://whatthecommit.com/">http://whatthecommit.com/</a> | head -n 1 | cowsay; sleep 2; done
+
+<span class="Comment"># Show all cowsay's available cowfiles {{{2</span>
+cowsay -l | sed  <span class="Constant">'1d;s/ /\n/g'</span> | while read f; do cowsay -f $f $f;done
+
+<span class="Comment"># Have a random &quot;cow&quot; say a random thing {{{2</span>
+fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+
+<span class="Comment"># Lets Tux say the random fact. [add it to .bashrc to see it in new terminal window] {{{2</span>
+wget randomfunfacts.com -O - 2&gt;/dev/null|grep \&lt;strong\&gt;|sed <span class="Constant">&quot;s;^.*&lt;i&gt;\(.*\)&lt;/i&gt;.*$;\1;&quot;</span>|cowsay -f tux
+
+<span class="Comment"># Even better Cowsay/Fortune {{{2</span>
+cowsay `fortune` | toilet --gay -f term
+
+<span class="Comment"># Get colorful fortunes {{{2</span>
+cowsay `fortune` | toilet --metal -f term
+
+<span class="Comment"># Random cow tells your fortune {{{2</span>
+files=(/usr/share/cowsay/cows/*);cowsay -f `printf <span class="Constant">&quot;%s\n&quot;</span> <span class="Constant">&quot;${files[RANDOM % ${#files}]}&quot;</span>` <span class="Constant">&quot;`fortune`&quot;</span>
+
+<span class="Comment"># let a cow tell you your fortune {{{2</span>
+fortune | cowsay -f tux
+
+<span class="Comment"># let a cow tell you your fortune {{{2</span>
+fortune | cowsay
+
+<span class="Comment"># let a cow tell you your fortune {{{2</span>
+cowsay $(fortune)
+
+<span class="Comment"># pimp text output e.g. &quot;Linux rocks!&quot; to look nice {{{2</span>
+cowsay Linux rocks!
+
+<span class="Comment"># need ascii art pictures for you readme text ? {{{2</span>
+boxes -d dog  or   cowsay -f tux $M
+
+<span class="Comment"># A death cow thinking in your fortune cookie {{{2</span>
+fortune -s -c -a | cowthink -d -W 45
+
+</pre>
+</body>
+</html>

@@ -10,7 +10,7 @@
 
 str=$1
 t=/tmp/snippet
-[ -f $t ] && rm $t
+
 file_new=${t}_${str}
 
 until [[ -z $1 ]]; do

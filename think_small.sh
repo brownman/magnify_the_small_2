@@ -181,6 +181,6 @@ steps(){
 
 trap trap_sigint SIGINT
 input=${@:-}
-echo "$0 $input" >> $dir_self/.history
+#echo "$0 $input" >> $dir_self/.history
 echo "[input] $input"
 steps

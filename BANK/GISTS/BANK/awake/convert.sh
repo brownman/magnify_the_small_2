@@ -30,7 +30,7 @@ type permission
 type sudoers
 }
 steps(){
-    preset
+    present
 set_env
 permission
 sudoers

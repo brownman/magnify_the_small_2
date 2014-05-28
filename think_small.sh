@@ -1,7 +1,7 @@
 clear
-#exec 2>/tmp/err
+exec 2>/tmp/err
 
-#trap trap_err ERR
+trap trap_err ERR
 set -o nounset
 update_clipboard(){
     ok updating clipboard
@@ -72,7 +72,7 @@ trap_err(){
 sourcing(){
     source $dir_self/CFG/print_color.cfg
     source $dir_self/CONF/vars.conf
-    #source $dir_self/CFG/trap_err.cfg
+    source $dir_self/CFG/trap_err.cfg
 }
 set_env(){
     file_current=""

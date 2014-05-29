@@ -1,7 +1,8 @@
 clear
-exec 2>/tmp/err
+set -e
+#exec 2>/tmp/err
 
-trap trap_err ERR
+#trap trap_err ERR
 set -o nounset
 update_clipboard(){
     ok updating clipboard

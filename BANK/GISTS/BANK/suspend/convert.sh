@@ -4,7 +4,7 @@
 clear
 set_env(){
     dir_self=`pwd`
-    file_target=$dir_self/awake.sh
+    file_target=$dir_self/suspend.sh
     file_sudoers=/etc/sudoers
 }
 

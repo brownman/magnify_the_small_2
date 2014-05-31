@@ -16,6 +16,8 @@ echo "timeout suspend set to : $timeout"
 
 suspend01(){
 
+local dir_self=`where_am_i $0`
+
 echo start | flite
     echo "suspend01().."
     local elapsed=0
@@ -29,7 +31,8 @@ echo start | flite
 xcowsay 'suspend!'
 
     sleep 1
-    res=$( dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend 2>/dev/null )
+    res=$( $dir_self/snippet.sh )
+    #dbus-send --system --print-reply     --dest="org.freedesktop.UPower"     /org/freedesktop/UPower     org.freedesktop.UPower.Suspend 2>/dev/null )
     echo "res:  $res"
     local after=`date +%s`
     let elapsed=after-before
